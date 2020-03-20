@@ -3,8 +3,8 @@
 # Contributor: Sven Pfleiderer <pfleidi@roothausen.de>
 
 pkgname=stfl-git
-pkgver=0.24
-pkgrel=5
+pkgver=0.24.r2.gb7be405
+pkgrel=1
 pkgdesc="Library implementing a curses-based widget set for text terminals"
 arch=('x86_64')
 url="http://clifford.at/stfl/"
@@ -17,6 +17,11 @@ source=("$pkgname::git+https://github.com/dennisschagt/stfl.git#branch=master"
         stfl-archlinux.patch)
 sha256sums=('SKIP'
             'c7d7c787bcd287a776aad3b26e6a90a3b121c281125c34c7c35a87f36dcdc453')
+
+pkgver() {
+  cd "$pkgname"
+  git describe --long | sed 's/^r//;s/-/.r/;s/-/./'
+}
 
 build() {
   cd "${srcdir}"/$pkgname
