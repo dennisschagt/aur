@@ -1,32 +1,34 @@
+# Maintainer: Dennis van der Schagt <dennisschagt@gmail.com>
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
 # Contributor: Sven Pfleiderer <pfleidi@roothausen.de>
 
-pkgname=stfl
+pkgname=stfl-git
 pkgver=0.24
-pkgrel=4
+pkgrel=5
 pkgdesc="Library implementing a curses-based widget set for text terminals"
 arch=('x86_64')
 url="http://clifford.at/stfl/"
 license=('GPL3')
+conflicts=('stfl')
+provides=('stfl')
 depends=('ncurses')
-makedepends=('patch' 'swig')
-changelog=$pkgname.changelog
-source=(http://clifford.at/stfl/$pkgname-$pkgver.tar.gz
-        $pkgname-archlinux.patch)
-sha256sums=('d4a7aa181a475aaf8a8914a8ccb2a7ff28919d4c8c0f8a061e17a0c36869c090'
+makedepends=('git' 'patch' 'swig')
+source=("$pkgname::git+https://github.com/dennisschagt/stfl.git#branch=master"
+        stfl-archlinux.patch)
+sha256sums=('SKIP'
             'c7d7c787bcd287a776aad3b26e6a90a3b121c281125c34c7c35a87f36dcdc453')
 
 build() {
-  cd "${srcdir}"/$pkgname-$pkgver
+  cd "${srcdir}"/$pkgname
 
-  patch -Np1 -i "${srcdir}"/$pkgname-archlinux.patch
+  patch -Np1 -i "${srcdir}"/stfl-archlinux.patch
 
   make prefix=/usr Makefile.deps
   make prefix=/usr
 }
 
 package() {
-  cd "${srcdir}"/$pkgname-$pkgver
+  cd "${srcdir}"/$pkgname
 
   make prefix=/usr DESTDIR="${pkgdir}" install
 
