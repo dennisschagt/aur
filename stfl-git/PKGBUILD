@@ -14,9 +14,11 @@ provides=('stfl')
 depends=('ncurses')
 makedepends=('git' 'patch' 'swig')
 source=("$pkgname::git+https://github.com/dennisschagt/stfl.git#branch=master"
-        stfl-archlinux.patch)
+        stfl-archlinux.patch
+        disable-optimization.patch)
 sha256sums=('SKIP'
-            'c7d7c787bcd287a776aad3b26e6a90a3b121c281125c34c7c35a87f36dcdc453')
+            'c7d7c787bcd287a776aad3b26e6a90a3b121c281125c34c7c35a87f36dcdc453'
+            'f2213b95a18bf577c492d5cae5fe5209ea0a6ce4d6c905ba378d9d804b9ac81e')
 OPTIONS+=(debug !strip)
 
 pkgver() {
@@ -28,6 +30,7 @@ build() {
   cd "${srcdir}"/$pkgname
 
   patch -Np1 -i "${srcdir}"/stfl-archlinux.patch
+  patch -Np1 -i "${srcdir}"/disable-optimization.patch
 
   make prefix=/usr Makefile.deps
   make prefix=/usr
