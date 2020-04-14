@@ -17,6 +17,7 @@ source=("$pkgname::git+https://github.com/dennisschagt/stfl.git#branch=master"
         stfl-archlinux.patch)
 sha256sums=('SKIP'
             'c7d7c787bcd287a776aad3b26e6a90a3b121c281125c34c7c35a87f36dcdc453')
+OPTIONS+=(debug !strip)
 
 pkgver() {
   cd "$pkgname"
