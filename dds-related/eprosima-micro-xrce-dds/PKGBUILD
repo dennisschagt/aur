@@ -6,7 +6,7 @@
 # Maintainer: Dennis van der Schagt <dennisschagt@gmail.com>
 pkgname=eprosima-micro-xrce-dds
 pkgver=1.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc="An XRCE DDS implementation from eProsima"
 arch=('x86_64')
 url="https://github.com/eProsima/Micro-XRCE-DDS"
@@ -32,7 +32,7 @@ build() {
     cmake -B build \
           -DCMAKE_INSTALL_PREFIX=/usr \
           -DUXRCE_BUILD_EXAMPLES=ON \
-          -S .
+          .
     make -C build
 }
 
