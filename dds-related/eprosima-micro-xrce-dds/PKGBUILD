@@ -28,7 +28,7 @@ sha256sums=('0dfa78110d99ee862fa5248d17d6d356fc2df5ef2bd5ae84596e878fcfe2e8ab')
 validpgpkeys=()
 
 build() {
-	cd "Micro-XRCE-DDS-$pkgver"
+    cd "Micro-XRCE-DDS-$pkgver"
     cmake -B build \
           -DCMAKE_INSTALL_PREFIX=/usr \
           -DUXRCE_BUILD_EXAMPLES=ON \
@@ -37,7 +37,7 @@ build() {
 }
 
 package() {
-	cd "Micro-XRCE-DDS-$pkgver"
-	make -C build DESTDIR="$pkgdir/" install
+    cd "Micro-XRCE-DDS-$pkgver"
+    make -C build DESTDIR="$pkgdir/" install
     rm -r "$pkgdir/home"
 }
