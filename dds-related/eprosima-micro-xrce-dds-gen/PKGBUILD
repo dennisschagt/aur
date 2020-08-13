@@ -1,0 +1,44 @@
+# Maintainer: Dennis van der Schagt <dennisschagt@gmail.com>
+pkgname=microxrcedds
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="eProsima source code generator from IDL files"
+arch=('x86_64')
+url="https://github.com/eProsima/Micro-XRCE-DDS-gen"
+license=('Apache')
+depends=()
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("${pkgname}-${pkgver}::git+https://github.com/eProsima/Micro-XRCE-DDS-gen#tag=v${pkgver}"
+        "idl-v1.0.1::git+https://github.com/eProsima/IDL-Parser#tag=v1.0.1")
+noextract=()
+sha256sums=('SKIP'
+            'SKIP')
+validpgpkeys=()
+
+prepare() {
+    cd "$pkgname-$pkgver"
+    git submodule init
+    git config submodule.thirdparty/IDL-Parser.url "${srcdir}/idl-v1.0.1"
+    git submodule sync
+    git submodule update
+}
+
+build() {
+    cd "$pkgname-$pkgver"
+    gradle build
+}
+
+package() {
+    cd "$pkgname-$pkgver"
+    install -Dm755 scripts/microxrceddsgen "$pkgdir"/usr/bin/microxrceddsgen
+    install -Dm644 share/microxrcedds/microxrceddsgen.jar "$pkgdir"/usr/share/$pkgname/microxrceddsgen.jar
+}
