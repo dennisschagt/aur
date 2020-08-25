@@ -1,13 +1,13 @@
 # Maintainer: Dennis van der Schagt <dennisschagt@gmail.com>
 pkgname=eprosima-micro-xrce-dds-client
 pkgver=1.2.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Client implementation of XRCE DDS from eProsima"
 arch=('x86_64')
 url="https://github.com/eProsima/Micro-XRCE-DDS"
 license=('Apache')
-depends=()
-makedepends=()
+depends=('eprosima-micro-cdr')
+makedepends=('cmake')
 checkdepends=()
 optdepends=()
 provides=()
@@ -29,6 +29,7 @@ build() {
           -DUCLIENT_ISOLATED_INSTALL=OFF \
           -DUCLIENT_BUILD_EXAMPLES=ON \
           -DUCLIENT_INSTALL_EXAMPLES=ON \
+          -DUCLIENT_SUPERBUILD=OFF \
           .
     make -C build
 }
