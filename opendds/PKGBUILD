@@ -33,7 +33,7 @@ build() {
 	cd "OpenDDS-DDS-$pkgver"
 	./configure --prefix=/usr --qt --tests
     echo '#define ACE_LACKS_SYS_SYSCTL_H' >> ACE_wrappers/ace/config.h
-	make
+	make -j8
 }
 
 package() {
