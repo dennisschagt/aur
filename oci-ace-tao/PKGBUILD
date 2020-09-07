@@ -1,0 +1,47 @@
+# Maintainer: Dennis van der Schagt <dennisschagt@gmail.com>
+pkgname=oci-ace-tao
+# TODO: Setup correct versioning scheme
+pkgver=2.2.18
+pkgrel=1
+epoch=
+pkgdesc="oci's distribution of ACE+TAO"
+arch=('x86_64')
+# TODO: Setup correct upstream url
+url="http://download.objectcomputing.com/TAO-2.2a_patches/"
+# TODO: Setup license files
+license=('custom')
+groups=()
+depends=()
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("http://download.objectcomputing.com/TAO-2.2a_patches/ACE+TAO-2.2a_p18_complete.tar.gz")
+sha256sums=('9319b1e77fe8aa9e2d16045204bf9b32da331da6c293535207f4236604b2308f')
+validpgpkeys=()
+
+prepare() {
+    cd "ACE_wrappers"
+    export ACE_ROOT=$(pwd)
+    echo '#include "ace/config-linux.h"' > $ACE_ROOT/ace/config.h
+    echo '#define ACE_LACKS_SYS_SYSCTL_H' >> $ACE_ROOT/ace/config.h
+    echo "include $ACE_ROOT/include/makeinclude/platform_linux.GNU" > $ACE_ROOT/include/makeinclude/platform_macros.GNU
+    echo "INSTALL_PREFIX = /usr" >> $ACE_ROOT/include/makeinclude/platform_macros.GNU
+    export LD_LIBRARY_PATH=$ACE_ROOT/lib:$LD_LIBRARY_PATH
+}
+
+build() {
+    cd "ACE_wrappers"
+    make
+}
+
+package() {
+    cd "ACE_wrappers"
+	make DESTDIR="$pkgdir/" install
+}
