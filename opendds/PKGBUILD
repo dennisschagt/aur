@@ -1,0 +1,42 @@
+# Maintainer: Dennis van der Schagt <dennisschagt@gmail.com>
+pkgname=opendds
+pkgver=3.14
+pkgrel=1
+epoch=
+pkgdesc="OpenDDS including ACE+TAO"
+arch=('x86_64')
+url=""
+# TODO: Specify correct license and install license text into /usr/share/licenses
+license=('custom')
+groups=()
+depends=()
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("https://github.com/objectcomputing/OpenDDS/archive/DDS-$pkgver.tar.gz")
+noextract=()
+sha256sums=('dbf35bc1c0ca83e6939293126c603327d05c8954024e38f012670fd05e2d3337')
+validpgpkeys=()
+
+prepare() {
+	cd "OpenDDS-DDS-$pkgver"
+}
+
+build() {
+	cd "OpenDDS-DDS-$pkgver"
+	./configure --prefix=/usr --qt --tests
+    echo '#define ACE_LACKS_SYS_SYSCTL_H' >> ACE_wrappers/ace/config.h
+	make
+}
+
+package() {
+	cd "OpenDDS-DDS-$pkgver"
+	make DESTDIR="$pkgdir/" install
+}
