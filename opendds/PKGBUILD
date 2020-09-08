@@ -26,17 +26,17 @@ sha256sums=('dbf35bc1c0ca83e6939293126c603327d05c8954024e38f012670fd05e2d3337')
 validpgpkeys=()
 
 prepare() {
-	cd "OpenDDS-DDS-$pkgver"
+    cd "OpenDDS-DDS-$pkgver"
 }
 
 build() {
-	cd "OpenDDS-DDS-$pkgver"
-	./configure --prefix=/usr --qt --tests
+    cd "OpenDDS-DDS-$pkgver"
+    ./configure --prefix=/usr --qt --tests
     echo '#define ACE_LACKS_SYS_SYSCTL_H' >> ACE_wrappers/ace/config.h
-	make -j8
+    make -j8
 }
 
 package() {
-	cd "OpenDDS-DDS-$pkgver"
-	make DESTDIR="$pkgdir/" install
+    cd "OpenDDS-DDS-$pkgver"
+    make DESTDIR="$pkgdir/" install
 }
