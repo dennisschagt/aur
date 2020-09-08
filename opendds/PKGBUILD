@@ -31,8 +31,7 @@ prepare() {
 
 build() {
     cd "OpenDDS-DDS-$pkgver"
-    ./configure --prefix=/usr --qt --tests
-    echo '#define ACE_LACKS_SYS_SYSCTL_H' >> ACE_wrappers/ace/config.h
+    ./configure --prefix=/usr --qt --tests --configh="#define ACE_LACKS_SYS_SYSCTL_H"
     make -j8
 }
 
